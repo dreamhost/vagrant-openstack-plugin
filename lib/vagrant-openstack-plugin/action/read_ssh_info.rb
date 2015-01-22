@@ -65,7 +65,6 @@ module VagrantPlugins
               end
             elsif server.private_ip_addresses.length > 0
               @logger.debug("Private IP addresses available: #{server.private_ip_addresses}")
-              puts config.ssh_ip_family
               if config.ssh_ip_family.nil?
                 host = server.private_ip_address
                 @logger.debug("Using the first available private IP address: #{host}.")
