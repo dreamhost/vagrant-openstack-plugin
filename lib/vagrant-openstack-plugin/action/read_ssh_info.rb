@@ -1,4 +1,5 @@
 require "log4r"
+require "ipaddr"
 
 module VagrantPlugins
   module OpenStack
@@ -64,8 +65,20 @@ module VagrantPlugins
               end
             elsif server.private_ip_addresses.length > 0
               @logger.debug("Private IP addresses available: #{server.private_ip_addresses}")
-              host = server.private_ip_address
-              @logger.debug("Using the first available private IP address: #{host}.")
+              puts config.ssh_ip_family
+              if config.ssh_ip_family.nil?
+                host = server.private_ip_address
+                @logger.debug("Using the first available private IP address: #{host}.")
+              else
+                for ip in server.private_ip_addresses
+                  addr = IPAddr.new ip
+                  if addr.send("#{config.ssh_ip_family}?".to_sym)
+                    host = ip.to_s
+                    @logger.debug("Using the first available #{config.ssh_ip_family} IP address: #{host}.")
+                    break
+                  end
+                end
+              end
             end
           end
 
