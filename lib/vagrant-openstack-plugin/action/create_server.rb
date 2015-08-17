@@ -113,7 +113,7 @@ module VagrantPlugins
               server.wait_for(5) { ready? }
               # Once the server is up and running assign a floating IP if we have one
               floating_ip = config.floating_ip
-              # try to automatically associate a floating IP
+              # try to automatically allocate and  associate a floating IP
               if floating_ip && floating_ip.to_sym == :auto
                 if config.floating_ip_pool
                   env[:ui].info("Allocating floating IP address from pool: #{config.floating_ip_pool}")
@@ -125,7 +125,6 @@ module VagrantPlugins
                   end
                 else
                   addresses = env[:openstack_compute].addresses
-                  puts addresses
                   free_floating = addresses.find_index {|a| a.fixed_ip.nil?}
                   if free_floating.nil?
                     raise Errors::FloatingIPNotFound
@@ -134,9 +133,35 @@ module VagrantPlugins
                   end
                 end
               end
+               
+              # try to automatically associate the next available unassigned ip in the given pool
+              if floating_ip && floating_ip.to_sym == :associate_unassigned
+                if config.floating_ip_pool
+                  env[:ui].info("Associating floating IP address from pool: #{config.floating_ip_pool}")
+                  addresses = env[:openstack_compute].addresses
+
+                  # grab the next available IP in this pool which is not currently allocated:
+                  address = env[:openstack_compute].addresses.find { |thisone|
+                      (thisone.attributes[:pool].eql? config.floating_ip_pool and thisone.attributes[:instance_id].nil?)
+                  }
+
+                  if address.nil?
+                    raise Errors::FloatingUnassignedIPNotFound
+                  else
+                      floating_ip = address.attributes[:ip]
+                  end
+                  result = env[:openstack_compute].associate_address(server.id,floating_ip)
+                  if result[:status] != 202
+                    raise Errors::FloatingIPFailedAssociate
+                  else
+                    env[:ui].info("Found and Associated floating IP address #{address.attributes[:ip]} from pool #{config.floating_ip_pool}")
+                  end
+                else
+                  raise Errors::FloatingUnassignedRequiresPool
+                end
+              end
                 
               if floating_ip
-                env[:ui].info( "Using floating IP #{floating_ip}")
                 floater = env[:openstack_compute].addresses.find { |thisone| thisone.ip.eql? floating_ip }
                 floater.server = server
               end

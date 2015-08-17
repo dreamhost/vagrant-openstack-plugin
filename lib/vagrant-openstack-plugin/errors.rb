@@ -43,6 +43,18 @@ module VagrantPlugins
         error_key(:floating_ip_not_allocated)
       end
 
+      class FloatingUnassignedIPNotFound < VagrantOpenStackError
+        error_key(:floating_unassigned_ip_not_found)
+      end
+
+      class FloatingIPFailedAssociate < VagrantOpenStackError
+        error_key(:floating_ip_failed_associate)
+      end
+
+      class FloatingUnassignedRequiresPool < VagrantOpenStackError
+        error_key(:floating_unassigned_requires_pool)
+      end
+
       class OrchestrationTemplateError < VagrantOpenStackError
         error_key(:orchestration_template_error)
       end

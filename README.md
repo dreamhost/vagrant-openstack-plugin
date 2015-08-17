@@ -77,8 +77,8 @@ Vagrant.configure("2") do |config|
     os.availability_zone  = "az0001"           # optional
     os.security_groups    = ['ssh', 'http']    # optional
     os.tenant             = "YOUR TENANT_NAME" # optional
-    os.floating_ip        = "33.33.33.33"      # optional (The floating IP to assign for this instance, or set to :auto)
-    os.floating_ip_pool   = "public"           # optional (The floating IP pool to allocate addresses from, if floating_ip = :auto)
+    os.floating_ip        = "33.33.33.33"      # optional (The floating IP to assign for this instance, or set to :auto or :associate_unassigned)
+    os.floating_ip_pool   = "public"           # optional (The floating IP pool to allocate addresses to, if floating_ip = :auto, or the pool to pull the next available IP from if floating_ip = :associate_unassigned)
 
     os.disks              = [                  # optional
                              {"name" => "volume_name_here", "description" => "A 10GB Volume", "size" => 10},
@@ -152,7 +152,7 @@ This provider exposes quite a few provider-specific configuration options:
 * `proxy` - HTTP proxy. When behind a firewall override this value for API access.
 * `ssl_verify_peer` - sets the ssl_verify_peer on the underlying excon connection - useful for self signed certs etc.
 * `floating_ip` - Floating ip. The floating IP to assign for this instance. If
-  set to :auto, then this assigns any available floating IP to the instance.
+  set to :auto, then this assigns any available floating IP to the instance. If set to :associate_unassigned, then it will use the next IP address which is unasssigned in the pool specified in floating_ip_pool.
 * `floating_ip_pool` - Floating ip pool to allocate IP addresses from, if
   floating_ip is set to :auto.  Previously allocated addresses will not be
   used, and addresses allocated here will be released when the VM is destroyed.
