@@ -66,6 +66,8 @@ Vagrant.configure("2") do |config|
     os.keypair_name = "YOUR KEYPAIR NAME"      # as stored in Nova
     os.ssh_username = "SSH USERNAME"           # login for the VM
 
+    os.ssh_ip_family = "ipv6"                  # IP address family
+
     os.metadata  = {"key" => "value"}                      # optional
     os.user_data = "#cloud-config\nmanage_etc_hosts: True" # optional
     os.network            = "YOUR NETWORK_NAME"            # optional
@@ -89,7 +91,7 @@ Vagrant.configure("2") do |config|
     os.orchestration_cfn_template_file = '/tmp/cfn_heat_template.json'	# optional
     os.orchestration_cfn_template_parameters = {			# optional
       'NetworkName' => 'net_01'
-    } 
+    }
   end
 end
 ```
@@ -133,7 +135,9 @@ This provider exposes quite a few provider-specific configuration options:
 * `username` - The username with which to access OpenStack.
 * `keypair_name` - The name of the keypair to access the machine.
 * `ssh_username` - The username to access the machine. This can also be
-  configured using the standard config.ssh.username configuration value.
+configured using the standard config.ssh.username configuration value.
+* `ssh_ip_family` - The IP address family to use for SSH connection. It could be `ipv6` or `ipv4`.
+This option takes effect only if virtual machine have multiple addresses.
 * `metadata` - A set of key pair values that will be passed to the instance
   for configuration.
 * `network` - A name or id that will be used to fetch network configuration
@@ -141,8 +145,8 @@ This provider exposes quite a few provider-specific configuration options:
   vagrant network configurations.
 * `networks` - An array of names or ids to create a server with multiple network interfaces. This overrides the `network` setting.
 * `address_id` - A specific address identifier to use when connecting to the
-  instance. `network` has higher precedence. If set to :floating_ip, then 
-  the floating IP address will be used. 
+  instance. `network` has higher precedence. If set to :floating_ip, then
+  the floating IP address will be used.
 * `scheduler_hints` - Pass hints to the open stack scheduler, see `--hint` flag in [OpenStack filters doc](http://docs.openstack.org/trunk/openstack-compute/admin/content/scheduler-filters.html)
 * `availability_zone` - Specify the availability zone in which the instance
   must be created.

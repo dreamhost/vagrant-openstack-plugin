@@ -68,6 +68,11 @@ module VagrantPlugins
       # @return [String]
       attr_accessor :ssh_username
 
+      # The IP address family that will be used to connect to the instance
+      #
+      # @return [String]
+      attr_accessor :ssh_ip_family
+
       # A Hash of metadata that will be sent to the instance for configuration
       #
       # @return [Hash]
@@ -137,6 +142,7 @@ module VagrantPlugins
         @availability_zone = UNSET_VALUE
         @security_groups = UNSET_VALUE
         @ssh_username = UNSET_VALUE
+        @ssh_ip_family = UNSET_VALUE
         @tenant = UNSET_VALUE
         @user_data = UNSET_VALUE
         @floating_ip = UNSET_VALUE
@@ -175,6 +181,7 @@ module VagrantPlugins
         # The SSH values by default are nil, and the top-level config
         # `config.ssh` values are used.
         @ssh_username = nil if @ssh_username == UNSET_VALUE
+        @ssh_ip_family = nil if @ssh_ip_family == UNSET_VALUE
 
         @tenant = nil if @tenant == UNSET_VALUE
         @user_data = "" if @user_data == UNSET_VALUE
