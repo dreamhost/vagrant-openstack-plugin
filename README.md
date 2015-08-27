@@ -79,8 +79,8 @@ Vagrant.configure("2") do |config|
     os.availability_zone  = "az0001"           # optional
     os.security_groups    = ['ssh', 'http']    # optional
     os.tenant             = "YOUR TENANT_NAME" # optional
-    os.floating_ip        = "33.33.33.33"      # optional (The floating IP to assign for this instance, or set to :auto or :associate_unassigned)
-    os.floating_ip_pool   = "public"           # optional (The floating IP pool to allocate addresses to, if floating_ip = :auto, or the pool to pull the next available IP from if floating_ip = :associate_unassigned)
+    os.floating_ip        = "33.33.33.33"      # optional (The floating IP to assign for this instance, or set to :auto or :associate_unassigned (ruby symbol, no quotes!))
+    os.floating_ip_pool   = "public"           # optional (The floating IP pool to allocate addresses to, if floating_ip = :auto, or the pool to pull the next available IP from if floating_ip = :associate_unassigned (ruby symbol, no quotes!))
 
     os.disks              = [                  # optional
                              {"name" => "volume_name_here", "description" => "A 10GB Volume", "size" => 10},
