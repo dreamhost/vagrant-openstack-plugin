@@ -112,6 +112,12 @@ en:
         IPs were found in OpenStack
       floating_ip_not_allocated: |-
         A floating IP could not be allocated from the pool.
+      floating_unassigned_ip_not_found: |-
+        An unassigned floating IP could not be found in the specified pool.
+      floating_ip_failed_associate: |-
+        The selected IP failed to associate
+      floating_unassigned_requires_pool: |-
+        You must specifiy a pool in floating_ip_pool when using associate_unassigned
       orchestration_template_error: |-
         There was an error while reading orchestration template.
         Error: %{err}
