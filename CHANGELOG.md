@@ -1,5 +1,24 @@
 # Changelog for vagrant-openstack-plugin
 
+## 0.12.0 (2015/08/27)
+
+- be more specific on using symbols in the config. fixes cloudbau/vagrant-openstack-plugin#106 [view commit](http://github.com///commit/0ef0865c6e38debd77982310073fe09cd99c6054)
+- Merge pull request #103 from corpix/ssh_ip_family [view commit](http://github.com///commit/6ca314cc0cdbbe62bd4b80e65e518103ce73b027)
+- Merge pull request #109 from joelanford/floating-ip-fix [view commit](http://github.com///commit/2bf8a08494a8aa4a5a5eae677691c56b9748208b)
+- Merge pull request #118 from maxx/master [view commit](http://github.com///commit/eadeaa992ad7f2b1e43d35843fdfdc2fda661e3d)
+- allows an alternative to os.floating_ip :auto, called os.floating_ip :associate_unassigned. This pulls an unassigned IP address from an existing pool with pre-allocated IP's, and will not try to allocate a new IP. If an IP is not available, no floating IP is assigned. Relevant errors and documentation added as well [view commit](http://github.com///commit/adc708405c47c44ef60ccdc5df4d9f6f04cd5a1f)
+- Fixes issue #100, where config.rb incorrectly handled floating_ip and floating_ip_pool configurations [view commit](http://github.com///commit/21f8532e726d21d75788dcd3d6cdd0ec84acc633)
+- Merge pull request #107 from Chealion/handleEphemeralDisks [view commit](http://github.com///commit/338e0525397bd710e351cb7a6eadcb801b2255f6)
+- Merge pull request #104 from cshaffer/upgrade_rsepc [view commit](http://github.com///commit/533c0ac004be755e973098c6589b4cf6b1fdc696)
+- Add ability to handle swap and ephemeral disks to disks feature [view commit](http://github.com///commit/c4f7acea6e2d97d040184534403fee2262671176)
+- Convert specs to RSpec 3.1.7 syntax with Transpec [view commit](http://github.com///commit/6115ccb73c8e28704bbe8efb5d079d35b1d0d844)
+- Upgrade rspec to 3.1.0 [view commit](http://github.com///commit/c0dfe22fdd7c9d2e72c02187491acea7b9e1b013)
+- Convert specs to RSpec 2.14.8 syntax with Transpec [view commit](http://github.com///commit/dd34a0eed957e190fec369f43514c8a5d4549833)
+- Upgrade rspec to 2.14 first [view commit](http://github.com///commit/332c537e4f028bc8ab4ffd630c75a32ca93a681f)
+- Removed debug printing [view commit](http://github.com///commit/59a8f024d090fff5ae28d30ef72a24d2f58044c3)
+- Updated readme [view commit](http://github.com///commit/815f05d770f9991fa5e333ae24e15fde801643d7)
+- IP address family match support [view commit](http://github.com///commit/5aa125c0e741496c60927cff9a413e942d9f2720)
+
 ## 0.11.1
 
 - Merge pull request #99 from jtopjian/master [view commit](http://github.com///commit/1c2667532e408f239761882a367c11d948610f37)
